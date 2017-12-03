@@ -18,7 +18,7 @@ html, body {
 
 .list-group {
 	width: 200px;
-	min-height: 320px;
+	min-height: 1px;
 	max-height: 100%;
 	overflow-y: scroll;
 	cursor: hover;
