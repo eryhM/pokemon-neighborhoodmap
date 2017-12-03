@@ -5,35 +5,17 @@ const pokeAPI = 'https://pokeapi.co/api/v2/pokemon/';
 let map;
 let activeInfoWindow = 'none';
 let pokeLocations = [
-	{ type: 'pokestop', name: 'pokestop #1', notes: 'Playground', lat: 48.778483, lng: 2.531204 },
-	{ type: 'pokestop', name: 'pokestop #2', notes: 'Toilets', lat: 48.778197, lng: 2.531402 },
-	{ type: 'pokestop', name: 'pokestop #3', notes: 'Park Northern Gate', lat: 48.779601, lng: 2.529526 },
-	{ type: 'pokestop', name: 'pokestop #4', notes: 'Painted Building', lat: 48.780152, lng: 2.529823 },
-	{ type: 'pokestop', name: 'pokestop #5', notes: 'Community Center', lat: 48.777628, lng: 2.532541 },
-	{ type: 'pokestop', name: 'pokestop #6', notes: 'Painted Wall', lat: 48.785378, lng: 2.528032 },
-	{ type: 'pokestop', name: 'pokestop #7', notes: 'Wall with wooden wheels!', lat: 48.784374, lng: 2.529915 },
-	{ type: 'pokestop', name: 'pokestop #8', notes: 'Gas Station', lat: 48.793901, lng: 2.553178 },
-	{ type: 'pokestop', name: 'pokestop #9', notes: 'Church', lat: 48.785351, lng: 2.540047 },
-	{ type: 'pokestop', name: 'pokestop #10', notes: 'Town Hall', lat: 48.785895, lng: 2.540755 },
-	{ type: 'pokemon', name: 'scyther', notes: 'Hatched from 5km Egg. Evolves into pure badass!', lat: 48.783485, lng: 2.529419 },
-	{ type: 'pokemon', name: 'misdreavus', notes: 'Caught in the wild.', lat: 48.777678, lng: 2.531622 },
-	{ type: 'pokemon', name: 'pidgey', notes: 'Caught in the wild.', lat: 48.777355, lng: 2.530390 },
-	{ type: 'pokemon', name: 'squirtle', notes: 'Caught in the wild. Then it rained for some reason.', lat: 48.796468, lng: 2.561812 },
-	{ type: 'pokemon', name: 'magnemite', notes: 'Hatched from 5km Egg. Phone ran out of battery soon after.', lat: 48.797761, lng: 2.560246 },
-	{ type: 'pokemon', name: 'chikorita', notes: 'Caught in the wild. Simply adorable.', lat: 48.777299, lng: 2.531951 },
-	{ type: 'pokemon', name: 'abra', notes: 'Caught in the wild. Hard catch!', lat: 48.777201, lng: 2.526840 },
-	{ type: 'pokemon', name: 'sudowoodo', notes: 'Hatched from 10km Egg.', lat: 48.794309, lng: 2.552482 },
-	{ type: 'pokemon', name: 'sneasel', notes: 'Caught in the wild. Clothes were clawed in the process.', lat: 48.778752, lng: 2.527546 },
-	{ type: 'pokemon', name: 'ditto', notes: 'Caught in the wild. Disguised as a Sentret!', lat: 48.792252, lng: 2.532884 }
+	{ name: 'scyther', notes: 'Hatched from 5km Egg. Evolves into pure badass!', lat: 48.783485, lng: 2.529419 },
+	{ name: 'misdreavus', notes: 'Caught in the wild.', lat: 48.777678, lng: 2.531622 },
+	{ name: 'pidgey', notes: 'Caught in the wild.', lat: 48.777355, lng: 2.530390 },
+	{ name: 'squirtle', notes: 'Caught in the wild. Then it rained for some reason.', lat: 48.796468, lng: 2.561812 },
+	{ name: 'magnemite', notes: 'Hatched from 5km Egg. Phone ran out of battery soon after.', lat: 48.797761, lng: 2.560246 },
+	{ name: 'chikorita', notes: 'Caught in the wild. Simply adorable.', lat: 48.777299, lng: 2.531951 },
+	{ name: 'abra', notes: 'Caught in the wild. Hard catch!', lat: 48.777201, lng: 2.526840 },
+	{ name: 'sudowoodo', notes: 'Hatched from 10km Egg.', lat: 48.794309, lng: 2.552482 },
+	{ name: 'sneasel', notes: 'Caught in the wild. Clothes were clawed in the process.', lat: 48.778752, lng: 2.527546 },
+	{ name: 'ditto', notes: 'Caught in the wild. Disguised as a Sentret!', lat: 48.792252, lng: 2.532884 }
 ];
-let icons = {
-	pokestop: {
-		icon: './img/icon_pokestop.png'
-	},
-	pokemon: {
-		icon: './img/icon_pokeball.png'
-	}
-};
 
 function initMap() {
 	// PokeAPI Test
@@ -224,57 +206,49 @@ let PokeMarker = function(pokeData) {
 
 	this.lat = pokeData.lat;
 	this.lng = pokeData.lng;
-	this.type = pokeData.type;
 	this.name = pokeData.name;
 	this.notes = pokeData.notes;
 	this.infoWindow = '';
 
 	this.visible = ko.observable(true);
 
-	if(this.type === 'pokemon') {
-		this.sprite = '';
-		this.types = '';
+	this.sprite = '';
+	this.types = '';
 
-		$.getJSON(pokeAPI + self.name).done(function(data) {
-			//Capitalize pokemon name
-			let name = self.name.charAt(0).toUpperCase() + self.name.slice(1);
+	$.getJSON(pokeAPI + self.name).done(function(data) {
+		//Capitalize pokemon name
+		let name = self.name.charAt(0).toUpperCase() + self.name.slice(1);
 
-			// Get pokemon sprite
-			self.sprite = data.sprites['front_default'];
+		// Get pokemon sprite
+		self.sprite = data.sprites['front_default'];
 
-			// Get pokemon type(s)
-			for(let i = 0; i < data.types.length; i++) {
-				// 2+ types? Add comma
-				if(self.types !== '')
-					self.types += ', ';
+		// Get pokemon type(s)
+		for(let i = 0; i < data.types.length; i++) {
+			// 2+ types? Add comma
+			if(self.types !== '')
+				self.types += ', ';
 
-				self.types += data.types[i].type['name'];
-			}
+			self.types += data.types[i].type['name'];
+		}
 
-			self.infoWindow = new google.maps.InfoWindow({
-				content: `<h3>${name}</h3>
-						<IMG SRC="${self.sprite}" BORDER="0" ALT="Sprite for ${name}">
-						<h6>Type(s): ${self.types}</h6>
-						<h6>Notes: ${self.notes}</h6>`
-			});
-		}).fail(function() {
-			// PokeAPI did not respond. Show name and notes anyway
-			self.infoWindow = new google.maps.InfoWindow({
-				content: `<h3>${self.name}</h3>
-						<h6>Notes: ${self.notes}</h6>
-						<p>Could not load this pokemon's data from PokeAPI. Please reload the page and try again.</p>`
-			});
+		self.infoWindow = new google.maps.InfoWindow({
+			content: `<h3>${name}</h3>
+					<IMG SRC="${self.sprite}" BORDER="0" ALT="Sprite for ${name}">
+					<h6>Type(s): ${self.types}</h6>
+					<h6>Notes: ${self.notes}</h6>`
 		});
-	} else {
+	}).fail(function() {
+		// PokeAPI did not respond. Show name and notes anyway
 		self.infoWindow = new google.maps.InfoWindow({
 			content: `<h3>${self.name}</h3>
-					<h6>${self.notes}</h6>`
+					<h6>Notes: ${self.notes}</h6>
+					<p>Could not load this pokemon's data from PokeAPI. Please reload the page and try again.</p>`
 		});
-	}
+	});
 
 	this.marker = new google.maps.Marker({
 		position: { lat: self.lat, lng: self.lng },
-		icon: icons[self.type].icon,
+		icon: './img/icon_pokeball.png',
 		animation: google.maps.Animation.DROP,
 		maxWidth: 300,
 		map: map

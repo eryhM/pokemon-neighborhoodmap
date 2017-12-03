@@ -1,6 +1,6 @@
 # PokemonGO Neighborhood Map
 
-This project is part of Udacity's FEND (Front-End Nanodegree). It displays a map of my neighborhood to add several "Pokestops" and Pokemon markers to display my progress in Pokemon GO.
+This project is part of Udacity's FEND (Front-End Nanodegree). It displays a map of my neighborhood and markers showing where I caught some Pokemons.
 
 ### How to run
 ---
