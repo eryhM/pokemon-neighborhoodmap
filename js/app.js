@@ -215,7 +215,7 @@ function AppViewModel() {
 
 	// Fit map on screen
 	let mapHeight = $(document).height() - (56 * 2) + 'px';
-	$('#map').css('height', mapHeight);
+	$('#map, .list-group').css('height', mapHeight);
 }
 
 let PokeMarker = function(pokeData) {
