@@ -18,6 +18,7 @@ This project uses the following:
 * [KnockoutJS 3.4.2](https://knockoutjs.com/)
 
 The page also make data requests to [PokeAPI](https://pokeapi.co).
+PokeStop and Pokemon icons were created using [this icon](https://www.shareicon.net/pokestop-pokemon-go-pokemongo-game-pokeball-pokemon-844138).
 
 ### License
 ---
