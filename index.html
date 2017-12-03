@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Project Neighborhood Map</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-dark">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#locationList" aria-controls="locationList" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<input class="ml-auto" data-bind="textInput: search, valueUpdate: 'afterkeydown'" placeholder="Search.." />
+	</nav>
+	<div class="collapse" id="locationList">
+		<ul class="list-group" data-bind="foreach: searchResults">
+			<li class="list-group-item" data-bind="text: name, click: locate"></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- <input data-bind="textInput: search, valueUpdate: 'afterkeydown'" /> -->
+		<!-- <ul data-bind="foreach: searchResults">
+			<li data-bind="text: name, click: locate"></li>
+		</ul> -->
+	<div id="map"></div>
+
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/popper.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+	<script src="./js/knockout-3.4.2.js"></script>
+	<script src="./js/app.js"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZWKvDp5R-zcjjLR479XoXBYRo_tE0kl4&v=3&callback=initMap" onerror="noGMaps()"></script>
+</body>
+</html>
